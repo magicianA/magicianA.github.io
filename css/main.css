@@ -1896,38 +1896,38 @@ body {
   width: 260px;
 }
 a {
-  color: #367fa9;
+  color: #d73929;
 }
 .post-title a {
-  color: #002e42;
+  color: #000;
 }
 a:hover,
 .post-title a:hover,
 .post-tags a:hover,
 .page-number.current,
 .page-number:hover {
-  color: #0078ab;
+  color: #d73828;
 }
 ::selection {
-  background: #367fa9;
+  background: #d73929;
   color: #fff;
 }
 ::-moz-selection {
-  background: #367fa9;
+  background: #d73929;
   color: #fff;
 }
 #top {
-  background: #3c8dbc;
-  border-top: 8px solid #367fa9;
+  background: #e74c3c;
+  border-top: 8px solid #d73929;
 }
 .logo {
-  background: #367fa9;
-  border-top: 8px solid #266d96;
+  background: #d73929;
+  border-top: 8px solid #ca2515;
 }
 .social .ico a,
 .topmenu li a,
 #footer .info {
-  color: #bedbec;
+  color: #ffdbd7;
 }
 .social .ico:hover a,
 #s-top,
@@ -1935,51 +1935,51 @@ a:hover,
   color: #fff;
 }
 #searchform-top {
-  background: #3c8dbc;
+  background: #e74c3c;
 }
 #s-top {
-  border-color: #bedbec;
+  border-color: #ffdbd7;
 }
 #s-top::-webkit-input-placeholder {
-  color: #bedbec;
+  color: #ffdbd7;
 }
 #s-top:-moz-placeholder {
-  color: #bedbec;
+  color: #ffdbd7;
 }
 #s-top::-moz-placeholder {
-  color: #bedbec;
+  color: #ffdbd7;
   opacity: 1;
 }
 #s-top:-ms-input-placeholder {
-  color: #bedbec;
+  color: #ffdbd7;
 }
 .topmenu .current-menu-item a {
-  background: #367fa9;
+  background: #d73929;
   color: #fff;
 }
 .topmenu .sub-menu {
-  background: #367fa9;
+  background: #d73929;
 }
 .topmenu .sub-menu li a {
-  background: #3c8dbc;
-  color: #bedbec;
+  background: #e74c3c;
+  color: #ffdbd7;
 }
 .topmenu .sub-menu .current-menu-item a {
-  background: #367fa9;
+  background: #d73929;
   color: #fff;
 }
 #foot {
-  border-top: 8px solid #3c8dbc;
-  background: #367fa9;
+  border-top: 8px solid #e74c3c;
+  background: #d73929;
 }
 #foot a {
-  color: #daedf7;
+  color: #ffdbd7;
 }
 #foot a:hover {
   color: #fff;
 }
 #bottom {
-  background: #266d96;
+  background: #ca2515;
 }
 @media screen and (max-width: 799px) {
   .post:first-child h2.post-title {
