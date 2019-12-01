@@ -153,18 +153,93 @@
 
     <article class="post post-type-normal hentry">
       <h2 class="post-title">
+        <a href="/2019/11/17/midterm19F/">微积分（上）期中考试题解</a>
+      </h2>
+
+      <div class="post-content">
+        
+          <h2 id="微积分上期中考试题解">微积分（上）期中考试题解</h2>
+<p>​ 这次考试不算难，没有有意思的或者值得总结的题，写题解意义不大，我就是想练练<span class="math inline">\(\LaTeX\)</span>而已（手动滑稽）。</p>
+<p><strong>T1</strong> 求数列极限 <span class="math inline">\(l = \lim\limits_{n \to \infty}{\sqrt[n]{2\sin^2n+3\cos^2n}}\)</span></p>
+<p>解：注意到<span class="math inline">\({\sqrt[n]{2}\leq\sqrt[n]{2\sin^2n+3\cos^2n}} = {\sqrt[n]{2+\cos^2x}}\leq \sqrt[n]{3}\)</span></p>
+<p>且<span class="math inline">\(\lim\limits_{n \to \infty}{\sqrt[n]{2}=\lim\limits_{n\to \infty}{\sqrt[n]{3}}=1}\)</span></p>
+<p>由夹挤准则 <span class="math inline">\(\lim\limits_{n \to \infty}{\sqrt[n]{2\sin^2n+3\cos^2n}}=1\)</span></p>
+<p><strong>T2</strong> 求无穷小<span class="math inline">\(u(x)=\sqrt[3]{x^2}-1 (x\to1)\)</span>关于<span class="math inline">\(x-1\)</span>的主部和阶数。</p>
+<p>解：<span class="math inline">\(\displaystyle u(x) = \left[1+(x-1)\right]^{\frac23}-1\sim\frac23(x-1)\)</span></p>
+<p>主部为<span class="math inline">\(\frac23(x-1)\)</span>,阶数为<span class="math inline">\(1\)</span></p>
+<p><strong>T3</strong> 求极限<span class="math inline">\(\displaystyle l =\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x\ln{\cos{x}}}}\)</span></p>
+<p>解： <span class="math display">\[
+\begin{aligned}
+l &amp;=\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x\ln{\cos{x}}}} \\
+&amp;=\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x(\cos{x}-1)}}\\
+&amp;=-2\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x^3}}\\
+&amp;=-2\lim\limits_{x\to0}{\frac{x\sin{x}}{3x^2}}\\
+&amp;=-\frac23
+\end{aligned}
+\]</span> <strong>T13</strong>证明：当<span class="math inline">\(n\)</span>为奇数时，实系数多项式函数<span class="math inline">\(f(x)=x^n+a_1x^{n-1}+a_2x^{n-2}+\ldots+a_n\)</span>至少有一个零点。</p>
+<p>解：当<span class="math inline">\(n\)</span>为奇数时，<span class="math inline">\(\lim\limits_{x\to+\infty}f(x)=+\infty\)</span>，<span class="math inline">\(\lim\limits_{x\to-\infty}f(x)=-\infty\)</span></p>
+<p><strong>T14</strong>设<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(x=2\)</span>处可导，且<span class="math inline">\(f(2)\not = 0\)</span>,求数列极限<span class="math inline">\(\displaystyle\lim\limits_{n\to\infty}{\left[\frac{f(2+\frac1n)}{f(2)}\right]^n}\)</span></p>
+<p><strong>T15</strong>求函数<span class="math inline">\(f(x)=x\cos{x}\)</span>的带peano余项的5阶Maclaurin多项式。</p>
+<p><strong>T16</strong>设数列<span class="math inline">\(\{x_n\}\)</span>满足：<span class="math inline">\(x_1=\sqrt6\)</span>,<span class="math inline">\(x_{n+1}=\sqrt{6+x_n}\)</span>证明极限<span class="math inline">\(\lim\limits_{n\to\infty}{x_n}\)</span>存在并求其值。</p>
+<p>解：假设<span class="math inline">\(\sqrt6 \leq x_n\leq3\)</span>,则<span class="math inline">\(\sqrt6\leq x_{n+1}=\sqrt{6+x_n}\leq3\)</span>,<span class="math inline">\(n=1\)</span>时,<span class="math inline">\(\sqrt6\leq x_1=\sqrt6\leq3\)</span></p>
+<p>由数学归纳法，<span class="math inline">\(\forall n \in \mathbb{N}^*\)</span>有<span class="math inline">\(\sqrt6 \leq x_n\leq3\)</span> <span class="math display">\[
+\begin{aligned}
+x_{n+1}-x_n &amp;= \sqrt{6+x_n}-\sqrt{x_n} \\ 
+&amp;= \frac{6+x_n-x_n^2}{\sqrt{6+x_n}+\sqrt{x_n}} \geq 0\\
+\end{aligned}
+\]</span> 所以<span class="math inline">\(\{x_n\}\)</span>单调递增，由单调有界收敛准则<span class="math inline">\(\lim\limits_{n\to\infty}{x_n}\)</span>存在，设<span class="math inline">\(\alpha=\lim\limits_{n\to\infty}{x_n}\)</span></p>
+<p>对等式<span class="math inline">\(x_{n+1}=\sqrt{6+x_n}\)</span>两边对<span class="math inline">\(n\to\infty\)</span>取极限，有<span class="math inline">\(\alpha=\sqrt{6+\alpha}\)</span></p>
+<p>即<span class="math inline">\(\alpha^2-\alpha-6=0\)</span>,解得<span class="math inline">\(\alpha=3\)</span>或<span class="math inline">\(\alpha = -2\)</span>(舍)</p>
+<p>因此<span class="math inline">\(\lim\limits_{n\to\infty}x_n=3\)</span></p>
+<p><strong>T17</strong>设<span class="math inline">\(0&lt;a&lt;b\)</span>,<span class="math inline">\(f(x)\)</span>在闭区间<span class="math inline">\([a,b]\)</span>上连续，开区间<span class="math inline">\((a,b)\)</span>上可导，证明：$ (a,b),f'()-f()=$</p>
+<p>解：设<span class="math inline">\(\displaystyle F(x)=\frac{f(x)}{x}\)</span>,<span class="math inline">\(\displaystyle g(x)=-\frac1x\)</span>,则<span class="math inline">\(f(x)\)</span>,<span class="math inline">\(g(x)\)</span>在闭区间<span class="math inline">\([a,b]\)</span>上连续，开区间<span class="math inline">\((a,b)\)</span>上可导,且<span class="math inline">\(g’(x)\not=0\)</span></p>
+<p>由Cauchy中值定理 <span class="math display">\[
+\exist \xi \in (a,b),\frac{F&#39;(\xi)}{g&#39;(\xi)}=\frac{F(b)-F(a)}{g(b)-g(a)}
+\]</span> 即 <span class="math display">\[
+\displaystyle \frac{\frac{f&#39;(\xi)\xi-f(\xi)}{\xi^2}}{\frac{1}{\xi^2}}=\frac{\frac{f(b)}{b}-\frac{f(a)}{a}}{\frac1a-\frac1b}
+\]</span> 化简得<span class="math inline">\(f&#39;(\xi)\xi-f(\xi)=\displaystyle\frac{af(b)-bf(a)}{b-a}\)</span>即为所求。</p>
+
+        
+      </div>
+
+      <div class="post-meta clf">
+  <span class="pmt pms fa-book">
+    
+      <a class="category-link" href="/categories/学习/">学习</a>
+    
+  </span>
+  <span class="pmt pms fa-clock-o">2019-11-17</span>
+
+  <span class="pmt pms fa-tag">
+    
+      <a class="tag-link" href="/tags/学习/">学习</a>
+    
+  </span>
+</div>
+
+    </article>
+  
+    
+
+    <article class="post post-type-normal hentry">
+      <h2 class="post-title">
         <a href="/2019/10/23/毕业旅行（一）/">毕业旅行（一）</a>
       </h2>
 
       <div class="post-content">
         
           <p>一篇鸽了两个月的游记。</p>
-<h2 id="毕业"><a href="#毕业" class="headerlink" title="毕业"></a>毕业</h2><p>​    坦白地说，我的高中生活很是失败。无论是从最后高考的结果，还是从高中三年的种种来讲，我的高中都很失败。</p>
-<p>​    不过这跟我的此次毕业旅行没有任何关系。</p>
-<h2 id="启程"><a href="#启程" class="headerlink" title="启程"></a>启程</h2><p>​    如果问我毕业旅行的最想去的目的地是哪，我想答案是毫无疑问的——日本。一方面是因为我想毕业旅行出趟国，另一方面就是因为，日本作为一个动漫等文化产业很发达的国家，对我还是很有吸引力的。不过这片游记不是写去日本的旅行的233。</p>
-<p>​    我暑假去旅行了两次，第二次是去日本，第一次是去天津。去天津的原因一是作为一个离北京这么近的城市，我却从来没有去过，很想去一次。二是确实很便宜。玩3天的话算来回路费也就500RMB左右。</p>
-<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><p>​    早上做高铁去天津，半个小时就到了，时间短到让人意识不到这是在坐高铁。下了高铁后坐地铁去旅店把行李放下</p>
-<p><img src="/2019/10/23/毕业旅行（一）/a1.jpg" alt="test"></p>
+<h2 id="毕业">毕业</h2>
+<p>​ 坦白地说，我的高中生活很是失败。无论是从最后高考的结果，还是从高中三年的种种来讲，我的高中都很失败。</p>
+<p>​ 不过这跟我的此次毕业旅行没有任何关系。</p>
+<h2 id="启程">启程</h2>
+<p>​ 如果问我毕业旅行的最想去的目的地是哪，我想答案是毫无疑问的——日本。一方面是因为我想毕业旅行出趟国，另一方面就是因为，日本作为一个动漫等文化产业很发达的国家，对我还是很有吸引力的。不过这片游记不是写去日本的旅行的233。</p>
+<p>​ 我暑假去旅行了两次，第二次是去日本，第一次是去天津。去天津的原因一是作为一个离北京这么近的城市，我却从来没有去过，很想去一次。二是确实很便宜。玩3天的话算来回路费也就500RMB左右。</p>
+<h2 id="day-1">Day 1</h2>
+<p>​ 早上做高铁去天津，半个小时就到了，时间短到让人意识不到这是在坐高铁。下了高铁后坐地铁去旅店把行李放下</p>
+<figure>
+<img src="/2019/10/23/毕业旅行（一）/a1.jpg" alt><figcaption>test</figcaption>
+</figure>
 
         
       </div>
@@ -229,8 +304,9 @@
 
       <div class="post-content">
         
-          <h1 id="关于此博客"><a href="#关于此博客" class="headerlink" title="关于此博客"></a>关于此博客</h1><p>​    一直以来都有写博客的想法，但由于各种原因一直没有开始着手。2018年7月21日我建立了自己的第一个博客（现已不再使用）。本博客建立于2019年8月31日。</p>
-<p>​    </p>
+          <h1 id="关于此博客">关于此博客</h1>
+<p>​ 一直以来都有写博客的想法，但由于各种原因一直没有开始着手。2018年7月21日我建立了自己的第一个博客（现已不再使用）。本博客建立于2019年8月31日。</p>
+<p>​</p>
 
         
       </div>
@@ -262,17 +338,18 @@
       <div class="post-content">
         
           <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
         
