@@ -26,18 +26,18 @@
 <meta name="generator" content="Hexo" />
 
 
-<meta name="description" content="GJK算法 Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。 预备知识 闵可夫斯基差 两个集合的闵可夫斯基差(Minkowski Difference) \(A\ominus B = \{x-y|x\in A\space \land\space">
+<meta name="description" content="GJK算法 Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。 预备知识 闵可夫斯基差 两个集合的闵可夫斯基差(Minkowski Difference) \(A\ominus B = \{x-y|x\in A\space \land\s">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GJK Algorithm">
 <meta property="og:url" content="https://magicianA.github.io/2021/04/18/GJK-Algorithm/index.html">
 <meta property="og:site_name" content="MagicianA">
-<meta property="og:description" content="GJK算法 Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。 预备知识 闵可夫斯基差 两个集合的闵可夫斯基差(Minkowski Difference) \(A\ominus B = \{x-y|x\in A\space \land\space">
+<meta property="og:description" content="GJK算法 Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。 预备知识 闵可夫斯基差 两个集合的闵可夫斯基差(Minkowski Difference) \(A\ominus B = \{x-y|x\in A\space \land\s">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2021-04-18T15:00:05.841Z">
+<meta property="og:updated_time" content="2021-04-18T15:17:18.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GJK Algorithm">
-<meta name="twitter:description" content="GJK算法 Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。 预备知识 闵可夫斯基差 两个集合的闵可夫斯基差(Minkowski Difference) \(A\ominus B = \{x-y|x\in A\space \land\space">
+<meta name="twitter:description" content="GJK算法 Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。 预备知识 闵可夫斯基差 两个集合的闵可夫斯基差(Minkowski Difference) \(A\ominus B = \{x-y|x\in A\space \land\s">
 
 
 
@@ -172,6 +172,8 @@
       </div>
       
       <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<p><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"></p>
+<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
 <h1 id="gjk算法">GJK算法</h1>
 <p>Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。</p>
 <h2 id="预备知识">预备知识</h2>
