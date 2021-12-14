@@ -158,7 +158,44 @@
 
       <div class="post-content">
         
-          <p>hjkl - navigation iIaA - editing in line xr - making change while in command mode Going into insert mode Going back to command mode dd for delete line G and gg for top and bottom lines {,} to skip blocks of code Using numbers to loop command u for undo and redo Cntrl+r for redo yy for copying line p for pasting line below P for pasting line above using dd to cut a line for pasting use V for visual line mode to select lines o for inserting the new line below O for inserting new line above d+<command> to delete characters w to jump forward words and b to jump backward <num> to jump to specific line 0 for the beginning of the line and $ for the end of the line. ^ for beginning word W for jumping forward a word (ignore punctuation) t+<char> and f+<char> to go to specific character in a line % to go to specific block parenthesis c+<command> for changing characters D to delete from cursor to end of line * to search for other instances ; to go to the next instance of a character when using t,f zz to center your page based on the cursor's position a to insert from the right of the character, i to insert from left A to insert from the end of the line, I to insert from the beginning of the line x to delete a character which cursor is on ~ to change the case of a letter . to repeat the last executed command r to replace a letter, R to go to replace mode Commend combo to move a chunk of code from bottom to top Commend combo to wrap a chunk of code <chars> to search for words in the document,n goto next occurrence</chars></char></char></num></p>
+          <p>hjkl - navigation</p>
+<p>iIaA - editing in line</p>
+<p>xr - making change while in command mode</p>
+<p>dd for delete line</p>
+<p>G and gg for top and bottom lines</p>
+<p>{,} to skip blocks of code</p>
+<p>Using numbers to loop command</p>
+<p>u for undo and redo</p>
+<p>Cntrl+r for redo</p>
+<p>yy for copying line </p>
+<p>p for pasting line below</p>
+<p>P for pasting line above</p>
+<p>using dd to cut a line for pasting</p>
+<p>use V for visual line mode to select lines</p>
+<p>o for inserting the new line below</p>
+<p>O for inserting new line above</p>
+<p>d+\<command> to delete characters</p>
+<p>w to jump forward words and b to jump backward</p>
+<p>\<num> to jump to specific line</num></p>
+<p>0 for the beginning of the line and $ for the end of the line. </p>
+<p>^ for beginning word</p>
+<p>W for jumping forward a word (ignore punctuation)</p>
+<p>t+\<char> and f+\<char> to go to specific character in a line</char></char></p>
+<p>% to go to specific block parenthesis</p>
+<p>c+\<command> for changing characters</p>
+<p>D to delete from cursor to end of line</p>
+<p>* to search for other instances</p>
+<p>; to go to the next instance of a character when using t,f</p>
+<p>zz to center your page based on the cursor’s position</p>
+<p>a to insert from the right of the character, i to insert from left</p>
+<p>A to insert from the end of the line, I to insert from the beginning of the line</p>
+<p>x to delete a character which cursor is on</p>
+<p>~ to change the case of a letter</p>
+<p>. to repeat the last executed command</p>
+<p>r to replace a letter, R to go to replace mode</p>
+<p>Commend combo to move a chunk of code from bottom to top</p>
+<p>Commend combo to wrap a chunk of code</p>
+<p>\<chars> to search for words in the document,n goto next occurrence</chars></p>
 
         
       </div>
@@ -189,132 +226,101 @@
 
       <div class="post-content">
         
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-<p><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"></p>
-<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
-<h1 id="broad-phase-算法简介">Broad Phase 算法简介</h1>
-<p>​ 物理引擎通常将碰撞检测分为两(三)个阶段，Broad Phase &amp; Narrow Phase (&amp; Mid Phase)，其中，Broad Phase 通常使用某种Bounding Volume (Sphere,AABB,OBB,Convex Hull等)来作为物体的碰撞体来简化计算。而Narrow Phase则使用物体真实的碰撞体，进行物体是否碰撞与碰撞点的求解，将数据发送给后续的Resolve Phase。</p>
-<p>​ 一般地，使用的Bounding Volume 越精确，False Positive 就越少。在上述列举的几种包围体中，精确度大概是凸包&gt;OBB&gt;AABB约等于球。</p>
-<p>​ 本文介绍Broad Phase几种常见的算法与数据结构。重点介绍其中的SAP(Sweep And Prune)算法</p>
-<h2 id="space-partioning-data-structures-bounding-volume-hierarchy">Space Partioning Data Structures &amp; Bounding Volume Hierarchy</h2>
-<p>​ 考虑这样一个情形：假设我们要对全世界所有的人进行碰撞检测，那么我们显然没有必要检测一个在北京的人与另一个在深圳的人的碰撞：这两个人离得太远了，根本不可能发生碰撞。</p>
-<p>​ 尝试将这种思想应用进物理引擎中，就诞生了两类数据结构：空间划分树/BVH(Bounding Volume Hierarchy)树。</p>
-<p>​ 空间划分树将空间递归地划分为若干部分，常见的空间划分数据结构有四叉树/八叉树/kDTree等。</p>
-<p>​ BVH与空间划分树不同，它将若干包围体组成一个层次结构(Hierarchy)而非对空间进行划分。</p>
-<p>​ 这两类数据结构实际实现起来有很多很多的细节可以讲，例如四叉树/八叉树为了适应频繁移动物体需要一些trick，BVH的构建方法等，但它们不是本文的重点。</p>
-<p>​ Uniform Grid(均匀网格)也是一种空间划分数据结构，它将在接下来的Multi-SAP,MBP等算法出现😀</p>
-<h2 id="sap-algorithm-variants">SAP Algorithm &amp; Variants</h2>
-<p>​ 终于来到本文的重点:SAP算法。</p>
-<p>​ SAP使用最简单的包围盒之一AABB (Axis-Align Bounding Box)作为碰撞检测的对象。注意到<strong>两个AABB相交当且仅当它们在x,y,z轴上的投影都相交</strong>。因此我们可以把<span class="math inline">\(n\)</span>个AABB两两相交问题转化为一轴上<span class="math inline">\(n\)</span>条线段的两两相交问题。</p>
-<p>​ 容易发现，如果直接对<span class="math inline">\(n\)</span>个AABB两两碰撞检测，时间复杂度为<span class="math inline">\(O(n^2)\)</span>。</p>
-<h3 id="sweeping-plane-algorithmbrute-force-sap">Sweeping Plane Algorithm(Brute Force SAP)</h3>
-<p>​ 我们先从最简单的情况考虑。假设<span class="math inline">\(n\)</span>个AABB已经被投影到某一轴上，如何判断两两相交情况？</p>
-<p>​ 考虑<a href="https://oi-wiki.org/basic/prefix-sum/" target="_blank" rel="noopener">ACM/OI中的差分算法</a>：从左到右扫描，维护还未结束的线段列表。这就是Brute Force SAP的思路。</p>
+          <p><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script></p>
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<p><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script></p>
+<h1 id="Broad-Phase-算法简介"><a href="#Broad-Phase-算法简介" class="headerlink" title="Broad Phase 算法简介"></a>Broad Phase 算法简介</h1><p>​    物理引擎通常将碰撞检测分为两(三)个阶段，Broad Phase &amp; Narrow Phase (&amp; Mid Phase)，其中，Broad Phase 通常使用某种Bounding Volume (Sphere,AABB,OBB,Convex Hull等)来作为物体的碰撞体来简化计算。而Narrow Phase则使用物体真实的碰撞体，进行物体是否碰撞与碰撞点的求解，将数据发送给后续的Resolve Phase。</p>
+<p>​    一般地，使用的Bounding Volume 越精确，False Positive 就越少。在上述列举的几种包围体中，精确度大概是凸包&gt;OBB&gt;AABB约等于球。</p>
+<p>​    本文介绍Broad Phase几种常见的算法与数据结构。重点介绍其中的SAP(Sweep And Prune)算法</p>
+<h2 id="Space-Partioning-Data-Structures-amp-Bounding-Volume-Hierarchy"><a href="#Space-Partioning-Data-Structures-amp-Bounding-Volume-Hierarchy" class="headerlink" title="Space Partioning Data Structures &amp; Bounding Volume Hierarchy"></a>Space Partioning Data Structures &amp; Bounding Volume Hierarchy</h2><p>​    考虑这样一个情形：假设我们要对全世界所有的人进行碰撞检测，那么我们显然没有必要检测一个在北京的人与另一个在深圳的人的碰撞：这两个人离得太远了，根本不可能发生碰撞。</p>
+<p>​    尝试将这种思想应用进物理引擎中，就诞生了两类数据结构：空间划分树/BVH(Bounding Volume Hierarchy)树。</p>
+<p>​    空间划分树将空间递归地划分为若干部分，常见的空间划分数据结构有四叉树/八叉树/kDTree等。</p>
+<p>​    BVH与空间划分树不同，它将若干包围体组成一个层次结构(Hierarchy)而非对空间进行划分。</p>
+<p>​    这两类数据结构实际实现起来有很多很多的细节可以讲，例如四叉树/八叉树为了适应频繁移动物体需要一些trick，BVH的构建方法等，但它们不是本文的重点。</p>
+<p>​    Uniform Grid(均匀网格)也是一种空间划分数据结构，它将在接下来的Multi-SAP,MBP等算法出现😀</p>
+<h2 id="SAP-Algorithm-amp-Variants"><a href="#SAP-Algorithm-amp-Variants" class="headerlink" title="SAP Algorithm &amp; Variants"></a>SAP Algorithm &amp; Variants</h2><p>​    终于来到本文的重点:SAP算法。</p>
+<p>​    SAP使用最简单的包围盒之一AABB (Axis-Align Bounding Box)作为碰撞检测的对象。注意到<strong>两个AABB相交当且仅当它们在x,y,z轴上的投影都相交</strong>。因此我们可以把$n$个AABB两两相交问题转化为一轴上$n$条线段的两两相交问题。</p>
+<p>​    容易发现，如果直接对$n$个AABB两两碰撞检测，时间复杂度为$O(n^2)$。</p>
+<h3 id="Sweeping-Plane-Algorithm-Brute-Force-SAP"><a href="#Sweeping-Plane-Algorithm-Brute-Force-SAP" class="headerlink" title="Sweeping Plane Algorithm(Brute Force SAP)"></a>Sweeping Plane Algorithm(Brute Force SAP)</h3><p>​    我们先从最简单的情况考虑。假设$n$个AABB已经被投影到某一轴上，如何判断两两相交情况？</p>
+<p>​    考虑<a href="https://oi-wiki.org/basic/prefix-sum/" target="_blank" rel="noopener">ACM/OI中的差分算法</a>：从左到右扫描，维护还未结束的线段列表。这就是Brute Force SAP的思路。</p>
 <p>算法主要流程如下：</p>
-<ol type="1">
+<ol>
 <li><strong>将所有 AABB 投影至特定轴上</strong></li>
 <li><strong>对轴上所有区间端点进行升序排序</strong></li>
 <li><strong>从小到大扫描投影轴</strong></li>
 <li><strong>遇到一个开始端点 s(i) ，将 s(i) 所属的 AABB(i) 与 L 中的所有 s 所属的 AABB 进行相交检测, 并将 S(i) 加入至 L</strong></li>
 <li><strong>遇到一个结束端点 e(i) ，将与同属 e(i) 同属一个AABB 的 s(i) 从 L 中移除</strong></li>
 </ol>
-<p>Brute Force SAP的时间复杂度即为投影+扫描+排序+输出的复杂度，即在平均情况下(最劣情况很少出现，因此本文仅考虑平均情况下的时间/空间复杂度)为<span class="math inline">\(O(n\log n)\)</span>。</p>
-<p>​ 为了方便理解，这里举一个例子来说明Brute Force SAP的运行过程。</p>
-<figure>
-<img src="/2021/07/17/SAP/BFSAP.png" alt><figcaption>BFSAP</figcaption>
-</figure>
-<p>​ (source:https://github.com/phenomLi/Blog/issues/22)</p>
-<p>TODO</p>
-<h3 id="sap-description">SAP Description　</h3>
-<p>​ Brute Force SAP能较好地处理很多情况下的碰撞检测。但它在一些情况下还是很慢。它有几个很显著的缺点：</p>
+<p>Brute Force SAP的时间复杂度即为投影+扫描+排序+输出的复杂度，即在平均情况下(最劣情况很少出现，因此本文仅考虑平均情况下的时间/空间复杂度)为$O(n\log n)$。</p>
+<p>​    为了方便理解，这里举一个例子来说明Brute Force SAP的运行过程。</p>
+<p><img src="/2021/07/17/SAP/BFSAP.png" alt="BFSAP"></p>
+<p>​    (source:<a href="https://github.com/phenomLi/Blog/issues/22" target="_blank" rel="noopener">https://github.com/phenomLi/Blog/issues/22</a>)</p>
+<p> TODO</p>
+<h3 id="SAP-Description"><a href="#SAP-Description" class="headerlink" title="SAP Description　"></a>SAP Description　</h3><p>​    Brute Force SAP能较好地处理很多情况下的碰撞检测。但它在一些情况下还是很慢。它有几个很显著的缺点：</p>
 <ul>
 <li>每一帧都要独立地做一次碰撞检测，没有利用好之前的信息，使得算法复杂度不优秀。</li>
 <li>投影轴的选取影响性能，如下图，如果使用x轴作为投影轴，和完全的暴力算法没有明显区别。</li>
 </ul>
-<figure>
-<img src="/2021/07/17/SAP/BFD.png" alt><figcaption>BFD</figcaption>
-</figure>
-<p>​ 那么，如何改进呢？</p>
-<p>​ 考虑实际物体的物理过程，一般地，由于物体的速度相对不大，物体的位置在两帧之间不会有太大变化。</p>
-<p>​ 我们把这种特性叫做<strong>帧相关性(frame coherence)</strong></p>
-<figure>
-<img src="/2021/07/17/SAP/FC.png" alt><figcaption>FC</figcaption>
-</figure>
-<p>​ 由于帧相关性，实际排序的时候物体的位置变化不大，因此我们需要一种在序列接近有序的时候复杂度较小的排序算法，我们知道，插入排序 （Insertion Sort）在序列接近有序时的复杂度为<span class="math inline">\(O(n)\)</span>，因此，我们可以选择插入排序作为我们的排序算法。</p>
-<figure>
-<img src="/2021/07/17/SAP/insertionsort.png" alt><figcaption>insertionsort</figcaption>
-</figure>
-<p>​ 由于插入排序有不同的实现方式，在本文中，插入排序特指在双重循环中，每次比较相邻两个数，如果前者较大就<strong>交换</strong>并继续比较，否则结束本层循环的算法实现。</p>
-<p>​ 接下来，考虑Brute Force SAP的三个阶段： 投影 -&gt; 排序 -&gt; 扫描相交。我们能否设计一种算法能够利用好帧相关性，<strong>在上一帧存储一些信息共下一帧使用</strong>，而非帧帧独立计算，来简化这三个步骤呢？我们注意到，我们没有必要每帧都进行扫描，线段是否相交只与它们的相对位置关系有关，如果排序没有改变线段端点的相对位置，我们自然没有必要更新碰撞对的列表。我们只需要在插入排序发生<strong>交换</strong>时更新碰撞对。</p>
-<p>​ 如下图所示：[]中的数字表示线段编号，*表示线段端点，其旁边的数字表示端点编号。u</p>
-<p>​ 0*----[0]--*2 3*----[1]--*5</p>
-<p>​ 1*-----[2]-----*4</p>
-<p>​ 假设 2 号线段在移动</p>
+<p><img src="/2021/07/17/SAP/BFD.png" alt="BFD"></p>
+<p>​    那么，如何改进呢？</p>
+<p>​    考虑实际物体的物理过程，一般地，由于物体的速度相对不大，物体的位置在两帧之间不会有太大变化。</p>
+<p>​    我们把这种特性叫做<strong>帧相关性(frame coherence)</strong></p>
+<p><img src="/2021/07/17/SAP/FC.png" alt="FC"></p>
+<p>​    由于帧相关性，实际排序的时候物体的位置变化不大，因此我们需要一种在序列接近有序的时候复杂度较小的排序算法，我们知道，插入排序 （Insertion Sort）在序列接近有序时的复杂度为$O(n)$，因此，我们可以选择插入排序作为我们的排序算法。</p>
+<p><img src="/2021/07/17/SAP/insertionsort.png" alt="insertionsort"></p>
+<p>​    由于插入排序有不同的实现方式，在本文中，插入排序特指在双重循环中，每次比较相邻两个数，如果前者较大就<strong>交换</strong>并继续比较，否则结束本层循环的算法实现。</p>
+<p>​    接下来，考虑Brute Force SAP的三个阶段： 投影 -&gt; 排序 -&gt; 扫描相交。我们能否设计一种算法能够利用好帧相关性，<strong>在上一帧存储一些信息共下一帧使用</strong>，而非帧帧独立计算，来简化这三个步骤呢？我们注意到，我们没有必要每帧都进行扫描，线段是否相交只与它们的相对位置关系有关，如果排序没有改变线段端点的相对位置，我们自然没有必要更新碰撞对的列表。我们只需要在插入排序发生<strong>交换</strong>时更新碰撞对。</p>
+<p>​    如下图所示：[]中的数字表示线段编号，*表示线段端点，其旁边的数字表示端点编号。u</p>
+<p>​    0*——[0]—*2                     3*——[1]—*5</p>
+<p>​                        1*——-[2]——-*4</p>
+<p>​    假设 2 号线段在移动</p>
 <ul>
 <li>若它的1号端点(左端点)越过了 0 号线段的右端点，则 0与2停止相交</li>
 <li>若它的1号端点(左端点)越过了 1 号线段的左端点，则无事发生</li>
 <li>若它的3号端点(右端点)越过了 1 号线段的左端点，则 1与2开始相交</li>
 <li>若它的3号端点(右端点)越过了 1 号线段的左端点，则无事发生</li>
 </ul>
-<p>​ 由于运动的相对性，这四种情况能够概括所有情况。</p>
-<p>​ 这种在排序发生交换时更新碰撞的<strong>增量式</strong>算法，就是SAP(Sweep And Prune)算法。由D. Baraff于1992年的博士论文中提出(<em>D. Baraff. Dynamic Simulation of Non-Penetrating Rigid Bodies. PhD thesis, Cornell University, 1992</em>)。</p>
-<h3 id="from-1d-to-3d">From 1D to 3D</h3>
-<p>​ 在Brute force SAP 中，我们只使用了一个轴作为扫描轴，并没有使用其他的轴上的信息。但在SAP中不同，我们必须更新三个轴上的信息，由于缓存友好性，通常使用再做一次单独的AABB碰撞检测的方法。（因为我们可以直接比较AABB表上的数组index，这样根本不用访问区间端点坐标，不会污染缓存）。</p>
-<h3 id="sap-data-structures-implementation-details">SAP Data Structures &amp; Implementation Details</h3>
-<p>​ 我们讨论用何种数据结构实现SAP以及实现中的一些细节。</p>
-<figure>
-<img src="/2021/07/17/SAP/DS.PNG" alt><figcaption>DS</figcaption>
-</figure>
-<p>​ 我们使用多个数组/链表存贮AABB编号，区间信息。一般情况下，我们使用数组，因为数组形式更缓存友好(cache-friendly)。其中，每个AABB存储x,y,z坐标的引用(在x,y,z轴区间坐标的index)。对于每个区间端点，我们存储它的坐标以及是左端点还是右端点。phsyx等现代物理引擎通常使用坐标分出1bit来存贮这个信息。</p>
-<p>​ 当向场景添加一个AABB时，我们需要做三件事：1、 分配空间 2、使线段端点插入到正确位置 3、更新碰撞对集合。一个小trick是将新添加的AABB放在充分远处(即区间数组的末尾)，再更改其坐标使之移动到正确位置。</p>
-<p>​ 当在场景中删除一个AABB时，与更新类似，我们可以先将AABB移到充分远处，再删除之。</p>
-<p>​ 当我们一次性在场景中添加多个物体时，我们可以考虑以下技巧(Batch Insertion)：相比于一个一个添加，我们可以先将插入物体的端点列表排好序，这样一次插入<span class="math inline">\(m\)</span>个物体的时间复杂度为<span class="math inline">\(O(n)\)</span>,其中<span class="math inline">\(n\)</span>为现有物体数量，而非一个一个插入的<span class="math inline">\(O(mn)\)</span>。</p>
-<h3 id="sap-complexity-analysis">SAP Complexity Analysis</h3>
-<p>​ 在D. Baraff的原论文中，他给出了O(n+s)的复杂度时间，其中，n为AABB的数量，s为在一次排序中交换的次数。我们尝试进一步详细分析SAP的时间复杂度。</p>
-<p>​ 考虑SAP的更新过程，我们可以分析出，SAP的时间复杂度为O(u+s+e+mn+o) 其中，u为移动AABB的数量，e为需更新AABB对的数量，s为一次排序中交换的次数，m为插入删除AABB数量，o为碰撞AABB对的总数(输出所需时间)。在物体均匀分布时可以给出<span class="math inline">\(s\)</span>与<span class="math inline">\(n\)</span>的关系，<span class="math inline">\(s=n^{1-\frac1k}\)</span>,<span class="math inline">\(k\)</span>为维度，<span class="math inline">\(k=2\)</span>即2D时，时间复杂度为<span class="math inline">\(O(n^{1.5})\)</span>，3D时复杂度约为<span class="math inline">\(O(n^{1.66})\)</span>。</p>
-<h3 id="faq">FAQ</h3>
-<p>​ （其实是我自己看论文时的一些疑问，经过思考之后想明白的）</p>
-<p>​ -Ｑ：既然我们比较一个轴上的信息之后，直接进行一次完整的AABB检测，为什么还有维护3个轴的信息？直接维护一个轴不就行了？</p>
-<p>​ -A：如果只保存一个轴的信息，不妨设为x轴，由于SAP是增量式算法，当物体在x轴上的投影不动，但在y轴，z轴上移动时，我们就不知道了。</p>
-<h2 id="multi-sap-multi-box-pruning">Multi-SAP &amp; Multi Box Pruning</h2>
-<h3 id="design-issues-and-drawbacks-of-sap">Design Issues and Drawbacks of SAP</h3>
-<p>​ SAP算法也有一些缺点：</p>
+<p>​    由于运动的相对性，这四种情况能够概括所有情况。</p>
+<p>​    这种在排序发生交换时更新碰撞的<strong>增量式</strong>算法，就是SAP(Sweep And Prune)算法。由D. Baraff于1992年的博士论文中提出(<em>D. Baraff. Dynamic Simulation of Non-Penetrating Rigid Bodies. PhD thesis, Cornell University, 1992</em>)。</p>
+<h3 id="From-1D-to-3D"><a href="#From-1D-to-3D" class="headerlink" title="From 1D to 3D"></a>From 1D to 3D</h3><p>​    在Brute force SAP 中，我们只使用了一个轴作为扫描轴，并没有使用其他的轴上的信息。但在SAP中不同，我们必须更新三个轴上的信息，由于缓存友好性，通常使用再做一次单独的AABB碰撞检测的方法。（因为我们可以直接比较AABB表上的数组index，这样根本不用访问区间端点坐标，不会污染缓存）。</p>
+<h3 id="SAP-Data-Structures-amp-Implementation-Details"><a href="#SAP-Data-Structures-amp-Implementation-Details" class="headerlink" title="SAP Data Structures &amp; Implementation Details"></a>SAP Data Structures &amp; Implementation Details</h3><p>​    我们讨论用何种数据结构实现SAP以及实现中的一些细节。</p>
+<p><img src="/2021/07/17/SAP/DS.PNG" alt="DS"></p>
+<p>​    我们使用多个数组/链表存贮AABB编号，区间信息。一般情况下，我们使用数组，因为数组形式更缓存友好(cache-friendly)。其中，每个AABB存储x,y,z坐标的引用(在x,y,z轴区间坐标的index)。对于每个区间端点，我们存储它的坐标以及是左端点还是右端点。phsyx等现代物理引擎通常使用坐标分出1bit来存贮这个信息。</p>
+<p>​    当向场景添加一个AABB时，我们需要做三件事：1、 分配空间 2、使线段端点插入到正确位置 3、更新碰撞对集合。一个小trick是将新添加的AABB放在充分远处(即区间数组的末尾)，再更改其坐标使之移动到正确位置。</p>
+<p>​    当在场景中删除一个AABB时，与更新类似，我们可以先将AABB移到充分远处，再删除之。</p>
+<p>​    当我们一次性在场景中添加多个物体时，我们可以考虑以下技巧(Batch Insertion)：相比于一个一个添加，我们可以先将插入物体的端点列表排好序，这样一次插入$m$个物体的时间复杂度为$O(n)$,其中$n$为现有物体数量，而非一个一个插入的$O(mn)$。</p>
+<h3 id="SAP-Complexity-Analysis"><a href="#SAP-Complexity-Analysis" class="headerlink" title="SAP Complexity Analysis"></a>SAP Complexity Analysis</h3><p>​    在D. Baraff的原论文中，他给出了O(n+s)的复杂度时间，其中，n为AABB的数量，s为在一次排序中交换的次数。我们尝试进一步详细分析SAP的时间复杂度。</p>
+<p>​    考虑SAP的更新过程，我们可以分析出，SAP的时间复杂度为O(u+s+e+mn+o) 其中，u为移动AABB的数量，e为需更新AABB对的数量，s为一次排序中交换的次数，m为插入删除AABB数量，o为碰撞AABB对的总数(输出所需时间)。在物体均匀分布时可以给出$s$与$n$的关系，$s=n^{1-\frac1k}$,$k$为维度，$k=2$即2D时，时间复杂度为$O(n^{1.5})$，3D时复杂度约为$O(n^{1.66})$。</p>
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><p>​    （其实是我自己看论文时的一些疑问，经过思考之后想明白的）</p>
+<p>​    -Ｑ：既然我们比较一个轴上的信息之后，直接进行一次完整的AABB检测，为什么还有维护3个轴的信息？直接维护一个轴不就行了？</p>
+<p>​    -A：如果只保存一个轴的信息，不妨设为x轴，由于SAP是增量式算法，当物体在x轴上的投影不动，但在y轴，z轴上移动时，我们就不知道了。</p>
+<h2 id="Multi-SAP-amp-Multi-Box-Pruning"><a href="#Multi-SAP-amp-Multi-Box-Pruning" class="headerlink" title="Multi-SAP &amp; Multi Box Pruning"></a>Multi-SAP &amp; Multi Box Pruning</h2><h3 id="Design-Issues-and-Drawbacks-of-SAP"><a href="#Design-Issues-and-Drawbacks-of-SAP" class="headerlink" title="Design Issues and Drawbacks of SAP"></a>Design Issues and Drawbacks of SAP</h3><p>​    SAP算法也有一些缺点：</p>
 <p>(a)如图所示，红色物体在y轴上移动，两个在x轴上与红色物体离得很远，静止不动，显然红色物体与蓝色物体不可能发生碰撞，但由于它们的投影在y轴上相交，当红色物体在y轴上运动时，它们的相对位置发生频繁改变，使得SAP算法频繁触发碰撞检测。这使得SAP本身的优势荡然无存。</p>
-<ol start="2" type="a">
-<li>SAP插入一次物体所需的时间为O(n),即使使用批量插入方法，在AABB的数量较大时，SAP的性能仍然不优秀。</li>
-</ol>
-<figure>
-<img src="/SAP/SAPD.PNG" alt><figcaption>SAPD</figcaption>
-</figure>
-<p>​ 一个很自然的想法是：将SAP与空间划分数据结构结合，在每个小区域内部使用SAP，</p>
+<p>(b) SAP插入一次物体所需的时间为O(n),即使使用批量插入方法，在AABB的数量较大时，SAP的性能仍然不优秀。</p>
+<p><img src="/SAP/SAPD.PNG" alt="SAPD"></p>
+<p>​    一个很自然的想法是：将SAP与空间划分数据结构结合，在每个小区域内部使用SAP，</p>
 <p>这就是Multi-SAP算法。</p>
-<figure>
-<img src="/2021/07/17/SAP/MSAP.PNG" alt><figcaption>MSAP</figcaption>
-</figure>
+<p><img src="/2021/07/17/SAP/MSAP.PNG" alt="MSAP"></p>
 <p>如上图所示：我们使用均匀网格作为空间划分数据结构。我们将空间划分为4份，在每份中单独使用SAP算法。对于那些落在边线上的点，我们将它们在出现过的区域都复制一份。</p>
 <p>Multi-SAP可以分为三步：分配到网格中 -&gt; 独立执行SAP -&gt; 合并结果。如果空间划分数据结构过于复杂，会造成分配和收集的困难，得不偿失。</p>
-<h3 id="multi-box-pruning">Multi Box Pruning</h3>
-<p>​ Multi-SAP的加速思路对Box Pruning 算法也适用。(Box Pruning 即为非增量式，只有一个投影轴的SAP)，这就是Multi Box Pruning算法。它与Multi-SAP的区别仅在于每个小空间中使用的是SAP还是Box Pruning。</p>
-<p>​ MBP算法有优点也有缺点：</p>
-<p>​ 优点：</p>
+<h3 id="Multi-Box-Pruning"><a href="#Multi-Box-Pruning" class="headerlink" title="Multi Box Pruning"></a>Multi Box Pruning</h3><p>​    Multi-SAP的加速思路对Box Pruning 算法也适用。(Box Pruning 即为非增量式，只有一个投影轴的SAP)，这就是Multi Box Pruning算法。它与Multi-SAP的区别仅在于每个小空间中使用的是SAP还是Box Pruning。</p>
+<p>​    MBP算法有优点也有缺点：</p>
+<p>​    优点：</p>
 <ul>
 <li>每个小空间中物体数量很少，这使得Box Pruning执行的速度很快。</li>
 <li>第二部独立执行Box Pruning的步骤可以很方便地并行化。</li>
 </ul>
-<p>​ 缺点：</p>
+<p>​    缺点：</p>
 <ul>
 <li>需要给定世界边界以及网格划分的参数。而额外的参数增加了调优难度。如果参数设置不好，一般效果不如SAP。</li>
 <li>对于大型物体，它可能被分配到很多网格之中，这使得检测时间增加。通常，对于大型的静止物体，物理引擎会单独处理它与其它物体的碰撞，不用SAP/MBP而是使用BVH等</li>
 </ul>
-<h2 id="broad-phase-algorithms-in-physx-unity">Broad Phase Algorithms in Physx &amp; Unity</h2>
-<figure>
-<img src="/2021/07/17/SAP/doc.PNG" alt><figcaption>doc</figcaption>
-</figure>
-<p>​ 如上图所示，Unity使用了Physx作为自己的底层物理引擎。而Physx有三种Broad Phase Algorithm，除了我们前面提到过的SAP和MBP之外，还有一种ABP(Automatic Box Pruning)。ABP在MBP的基础上，可以自动的设置世界边界以及网格参数。实践中，ABP表现相当优秀。</p>
-<p>​ 另外，Physx的API中，对于MBP可以自己增加任意区域，但在Unity中的MBP只能设置世界边界以及世界x轴和z轴上均匀网格的数量。这就更加不推荐在Unity中使用MBP Broad Phase了。</p>
-<h2 id="reference">Reference</h2>
-<p>1、Real-Time Collision Detection——Christer Ericson</p>
-<p>2、http://www.codercorner.com/SAP.pdf</p>
+<h2 id="Broad-Phase-Algorithms-in-Physx-amp-Unity"><a href="#Broad-Phase-Algorithms-in-Physx-amp-Unity" class="headerlink" title="Broad Phase Algorithms in Physx &amp; Unity"></a>Broad Phase Algorithms in Physx &amp; Unity</h2><p><img src="/2021/07/17/SAP/doc.PNG" alt="doc"></p>
+<p>​    如上图所示，Unity使用了Physx作为自己的底层物理引擎。而Physx有三种Broad Phase Algorithm，除了我们前面提到过的SAP和MBP之外，还有一种ABP(Automatic Box Pruning)。ABP在MBP的基础上，可以自动的设置世界边界以及网格参数。实践中，ABP表现相当优秀。</p>
+<p>​    另外，Physx的API中，对于MBP可以自己增加任意区域，但在Unity中的MBP只能设置世界边界以及世界x轴和z轴上均匀网格的数量。这就更加不推荐在Unity中使用MBP Broad Phase了。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>1、Real-Time Collision Detection——Christer Ericson</p>
+<p>2、<a href="http://www.codercorner.com/SAP.pdf" target="_blank" rel="noopener">http://www.codercorner.com/SAP.pdf</a></p>
 <p>3、Efficient Large-Scale Sweep and Prune Methods with AABB Insertion and Removal Daniel J. Tracy et. al.</p>
 
         
@@ -346,19 +352,11 @@
 
       <div class="post-content">
         
-          <h2 id="mi-11-pro-使用体验">Mi 11 Pro 使用体验</h2>
-<p>想记录下自己使用小米11Pro若干月以来的一些想法。</p>
-<h3 id="购买体验">购买体验</h3>
-<p>我是2021年4月2号于小米官方商城首发购买的12 + 256 GB （颜色）版本的Mi 11 Pro。购买体验良好，几乎不需要抢购，货源充足，点个赞！(当然也有可能是被Ultra抢了风头，我印象中Ultra还是需要抢购的)</p>
-<h3 id="外观">外观</h3>
-<h3 id="性能发热">性能&amp;发热</h3>
-<h3 id="拍照">拍照</h3>
-<h3 id="miui">MIUI</h3>
-<p>我不是任何手机品牌的粉丝，使用过华为，小米，一加，苹果的手机，但是任何品牌都没有忠诚度可言233；对我而言，让我更换手机时再次选择同样品牌的手机的最主要的原因便是该手机系统的用户粘性。但是我还是很喜欢雷总的233。</p>
+          <h2 id="Mi-11-Pro-使用体验"><a href="#Mi-11-Pro-使用体验" class="headerlink" title="Mi 11 Pro 使用体验"></a>Mi 11 Pro 使用体验</h2><p>想记录下自己使用小米11Pro若干月以来的一些想法。</p>
+<h3 id="购买体验"><a href="#购买体验" class="headerlink" title="购买体验"></a>购买体验</h3><p>我是2021年4月2号于小米官方商城首发购买的12 + 256 GB （颜色）版本的Mi 11 Pro。购买体验良好，几乎不需要抢购，货源充足，点个赞！(当然也有可能是被Ultra抢了风头，我印象中Ultra还是需要抢购的)</p>
+<h3 id="外观"><a href="#外观" class="headerlink" title="外观"></a>外观</h3><h3 id="性能-amp-发热"><a href="#性能-amp-发热" class="headerlink" title="性能&amp;发热"></a>性能&amp;发热</h3><h3 id="拍照"><a href="#拍照" class="headerlink" title="拍照"></a>拍照</h3><h3 id="MIUI"><a href="#MIUI" class="headerlink" title="MIUI"></a>MIUI</h3><p>我不是任何手机品牌的粉丝，使用过华为，小米，一加，苹果的手机，但是任何品牌都没有忠诚度可言233；对我而言，让我更换手机时再次选择同样品牌的手机的最主要的原因便是该手机系统的用户粘性。但是我还是很喜欢雷总的233。</p>
 <p>Mi 11 Pro 是我个人购买并使用的第四部小米手机。之前使用过红米Note，红米Note3，小米5s（可以看到价格是逐渐上升的233）我印象中这几部手机的使用体验都还是不错的。根据我之前的使用体验，小米手机的最大亮点即为MIUI，功能齐全，个性化也做得很好。然而仅就我这一个月的使用体验而言，MIUI12/12.5做的远远不够。</p>
-<h3 id="充电续航">充电&amp;续航</h3>
-<h3 id="总结对小米的展望">总结&amp;对小米的展望</h3>
-
+<h3 id="充电-amp-续航"><a href="#充电-amp-续航" class="headerlink" title="充电&amp;续航"></a>充电&amp;续航</h3><h3 id="总结-amp-对小米的展望"><a href="#总结-amp-对小米的展望" class="headerlink" title="总结&amp;对小米的展望"></a>总结&amp;对小米的展望</h3>
         
       </div>
 
@@ -388,35 +386,30 @@
 
       <div class="post-content">
         
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-<p><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"></p>
-<script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
-<h1 id="gjk算法">GJK算法</h1>
-<p>Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。</p>
-<h2 id="预备知识">预备知识</h2>
-<h3 id="闵可夫斯基差">闵可夫斯基差</h3>
-<p>两个集合的闵可夫斯基差(Minkowski Difference) <span class="math inline">\(A\ominus B = \{x-y|x\in A\space \land\space y \in B\}\)</span></p>
-<p>则<span class="math inline">\(A\cap B \neq \emptyset \Leftrightarrow O \in A\ominus B\)</span></p>
-<p>可以证明，如果<span class="math inline">\(A,B\)</span>都是凸多边形，那么<span class="math inline">\(A\ominus B\)</span>也是凸多边形，且<span class="math inline">\(A\ominus B\)</span>的顶点的来源是<span class="math inline">\(A,B\)</span>的顶点。</p>
+          <p><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script></p>
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+
+<p><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script></p>
+<h1 id="GJK算法"><a href="#GJK算法" class="headerlink" title="GJK算法"></a>GJK算法</h1><p>Gilbert–Johnson–Keerthi 算法(GJK算法)是碰撞检测Narrow-Phase常用的一种算法。可以计算二维或者三维的碰撞。以下介绍二维情况，且可以被比较简单地推广到三维。</p>
+<h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="闵可夫斯基差"><a href="#闵可夫斯基差" class="headerlink" title="闵可夫斯基差"></a>闵可夫斯基差</h3><p>两个集合的闵可夫斯基差(Minkowski Difference) $A\ominus B = \{x-y|x\in A\space \land\space y \in B\}$</p>
+<p>则$A\cap B \neq \emptyset \Leftrightarrow O \in A\ominus B$ </p>
+<p>可以证明，如果$A,B$都是凸多边形，那么$A\ominus B$也是凸多边形，且$A\ominus B$的顶点的来源是$A,B$的顶点。</p>
 <p>如此，我们可以考虑如下算法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">bruteForce</span><span class="params">(Polygon A,Polygon B)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;Vector3&gt; points;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> vertexa : A.vertex)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> vertexb : B.vertex)&#123;</span><br><span class="line">        	points.push_back(vertexa - vertexB);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Polygon minkowskiDiff = FindConvexHull(points);</span><br><span class="line">    <span class="keyword">return</span> minkowskiDiff.hasOrigin();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上述算法的复杂度是<span class="math inline">\(O(n^2logn)\)</span></p>
-<h3 id="支持向量与支持函数">支持向量与支持函数</h3>
-<p>对于集合<span class="math inline">\(A\)</span>定义支持函数(support function)如下：</p>
-<p>$support(A,d) = a d $</p>
-<p>即集合<span class="math inline">\(A\)</span>中所有点中与<span class="math inline">\(\vec d\)</span>点乘最大的点，也即在<span class="math inline">\(\vec d\)</span>方向上最远的点，称<span class="math inline">\(\vec d\)</span>为支持向量。</p>
-<p>可以证明，若<span class="math inline">\(A\)</span>是一个凸多边形，则当<span class="math inline">\(\vec d\)</span>旋转一周后，<span class="math inline">\(support(A,\vec d)\)</span>正好遍历每个顶点一次。</p>
-<p>于是不难发现有<span class="math inline">\(support(A\ominus B,\vec d) = support(A,\vec d)-support(B,-\vec d)\)</span></p>
-<h2 id="gjk算法实现">GJK算法实现</h2>
-<p>求出整个<span class="math inline">\(A\ominus B\)</span>需要<span class="math inline">\(O(n^2logn)\)</span>的时间，这是我们不能接受的。于是我们考虑维护一个单纯形(即确定一块区域的最简图形，二维为三角形，三维为四面体)，如果这个三角形包含远点，则<span class="math inline">\(O\in A\ominus B\)</span>。如果它不包含，我们通过求解逐步调整这个三角形使他逼近远点，直到不能继续为止(详见参考资料/ppt)。</p>
+<p>上述算法的复杂度是$O(n^2logn)$</p>
+<h3 id="支持向量与支持函数"><a href="#支持向量与支持函数" class="headerlink" title="支持向量与支持函数"></a>支持向量与支持函数</h3><p>对于集合$A$定义支持函数(support function)如下：</p>
+<p>$support(A,\vec d) = \underset{a \in A}{argmax}\space \vec a \cdot\vec d $</p>
+<p>即集合$A$中所有点中与$\vec d$点乘最大的点，也即在$\vec d$方向上最远的点，称$\vec d$为支持向量。</p>
+<p>可以证明，若$A$是一个凸多边形，则当$\vec d$旋转一周后，$support(A,\vec d)$正好遍历每个顶点一次。</p>
+<p>于是不难发现有$support(A\ominus B,\vec d) = support(A,\vec d)-support(B,-\vec d)$</p>
+<h2 id="GJK算法实现"><a href="#GJK算法实现" class="headerlink" title="GJK算法实现"></a>GJK算法实现</h2><p>求出整个$A\ominus B$需要$O(n^2logn)$的时间，这是我们不能接受的。于是我们考虑维护一个单纯形(即确定一块区域的最简图形，二维为三角形，三维为四面体)，如果这个三角形包含远点，则$O\in A\ominus B$。如果它不包含，我们通过求解逐步调整这个三角形使他逼近远点，直到不能继续为止(详见参考资料/ppt)。</p>
 <p>直接上代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">public class GJK : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    private static Vector3 findFurthest(List&lt;Vector3&gt; vertexs,Vector3 dir)&#123;</span><br><span class="line">        //求解support(A,dir)</span><br><span class="line">        Vector3 res = vertexs[0];</span><br><span class="line">        float maxVal = Vector3.Dot(res,dir);</span><br><span class="line">        foreach(var vertex in vertexs)&#123;//遍历所有顶点</span><br><span class="line">            if(Vector3.Dot(vertex,dir) &gt; maxVal)&#123;</span><br><span class="line">                maxVal = Vector3.Dot(vertex,dir);</span><br><span class="line">                res = vertex;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    private static Vector3 support(List&lt;Vector3&gt; polygonA,List&lt;Vector3&gt; polygonB,Vector3 dir)&#123;</span><br><span class="line">    //求解support(A-B,dir)</span><br><span class="line">        return findFurthest(polygonA,dir) - findFurthest(polygonB,-dir);</span><br><span class="line">    &#125;</span><br><span class="line">    public static bool nextSimplex(List&lt;Vector3&gt; simplex,ref Vector3 d)&#123;</span><br><span class="line">    //求下一个单纯形</span><br><span class="line">        if(simplex.Count == 2)&#123;</span><br><span class="line">            return lineCase(simplex,ref d); //两个点的情况</span><br><span class="line">        &#125;</span><br><span class="line">        return triangleCase(simplex,ref d);//三角形的情况</span><br><span class="line">    &#125;</span><br><span class="line">    public static bool lineCase(List&lt;Vector3&gt; simplex,ref Vector3 d)&#123;</span><br><span class="line">        Vector3 B = simplex[0],A = simplex[1];</span><br><span class="line">        Vector3 AB = B - A,AO = -A;</span><br><span class="line">        //与AB垂直，指向原点的向量</span><br><span class="line">        Vector3 ABp = Vector3.Cross(Vector3.Cross(AB,AO),AB);</span><br><span class="line">        d = ABp;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    public static bool triangleCase(List&lt;Vector3&gt; simplex,ref Vector3 d)&#123;</span><br><span class="line">    	//按C,B,A顺序加入单纯形的三个点</span><br><span class="line">        Vector3 C = simplex[0],B = simplex[1],A = simplex[2];</span><br><span class="line">        Vector3 AB = B - A,AC = C - A,AO = -A;</span><br><span class="line">       	//与AB垂直的向量</span><br><span class="line">        Vector3 ABp = Vector3.Cross(Vector3.Cross(AC,AB),AB);</span><br><span class="line">        //与AC垂直的向量</span><br><span class="line">        Vector3 ACp = Vector3.Cross(Vector3.Cross(AB,AC),AC);</span><br><span class="line">        //在R_AB区域</span><br><span class="line">        if(Vector3.Dot(ABp,AO) &gt; 0)&#123;</span><br><span class="line">            simplex.Remove(C);</span><br><span class="line">            d = ABp;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        //在R_AC区域</span><br><span class="line">        if(Vector3.Dot(ACp,AO) &gt; 0)&#123;</span><br><span class="line">            simplex.Remove(B);</span><br><span class="line">            d = ACp;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        //在三角形内部</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    public static bool gjk(List&lt;Vector3&gt; polygonA,List&lt;Vector3&gt; polygonB)&#123;</span><br><span class="line">        Vector3 d = support(polygonA,polygonB,Vector3.right);//初始支持向量是任意方向</span><br><span class="line">        List&lt;Vector3&gt; simplex = new List&lt;Vector3&gt;();</span><br><span class="line">        simplex.Add(d);</span><br><span class="line">        d = -d;//调整支持向量指向远点</span><br><span class="line">        while(true)&#123;</span><br><span class="line">            Vector3 A = support(polygonA,polygonB,d);</span><br><span class="line">            if(Vector3.Dot(A,d) &lt; 0)&#123;</span><br><span class="line">                return false; //不可能包含原点</span><br><span class="line">            &#125;</span><br><span class="line">            simplex.Add(A);</span><br><span class="line">            if(nextSimplex(simplex,ref d))&#123;//求下一个单纯形</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="参考资料">参考资料</h4>
-<p>https://www.youtube.com/watch?v=MDusDn8oTSE</p>
-<p>https://www.youtube.com/watch?v=ajv46BSqcK4</p>
-<p>https://blog.winter.dev/2020/gjk-algorithm/</p>
-<p>http://realtimecollisiondetection.net/pubs/SIGGRAPH04_Ericson_GJK_notes.pdf</p>
-<p>https://zhuanlan.zhihu.com/p/113415779</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://www.youtube.com/watch?v=MDusDn8oTSE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=MDusDn8oTSE</a></p>
+<p><a href="https://www.youtube.com/watch?v=ajv46BSqcK4" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ajv46BSqcK4</a></p>
+<p><a href="https://blog.winter.dev/2020/gjk-algorithm/" target="_blank" rel="noopener">https://blog.winter.dev/2020/gjk-algorithm/</a></p>
+<p><a href="http://realtimecollisiondetection.net/pubs/SIGGRAPH04_Ericson_GJK_notes.pdf" target="_blank" rel="noopener">http://realtimecollisiondetection.net/pubs/SIGGRAPH04_Ericson_GJK_notes.pdf</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/113415779" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/113415779</a></p>
 
         
       </div>
@@ -447,18 +440,11 @@
 
       <div class="post-content">
         
-          <h1 id="indie-camp-2019游记">Indie Camp 2019游记</h1>
-<p>​ 记我的第一次Game Jam之旅。</p>
-<p>​ 我最早知道Game Jam这么个东西是看谜之声的视频知道的，谜叔在每期Ludum Dare结束后都会选择一些有趣的作品做成实况，其中真的有许多很棒的作品。我知道的很多独立游戏就是从某届Ludum Dare的demo完善出来的，例如<em>Baba Is You</em>，<em>Mini Metro</em>等。这一次听说有一个Game Jam可以参加，还包来回车票以及食宿，相当于免费去上海玩一圈，这种好事肯定要报名啊🤣</p>
-<h2 id="day-1-2019.12.13">Day 1 2019.12.13</h2>
-<p>​ 请了一天假，周五早上从武汉出发。</p>
-<figure>
-<img src="/2019/12/16/indiecamp2019/a.jpg" alt><figcaption>a</figcaption>
-</figure>
-<h2 id="day-2-2019.12.14">Day 2 2019.12.14</h2>
-<h2 id="day-3-2019.12.15">Day 3 2019.12.15</h2>
-<h2 id="感悟与总结">感悟与总结</h2>
-
+          <h1 id="Indie-Camp-2019游记"><a href="#Indie-Camp-2019游记" class="headerlink" title="Indie Camp 2019游记"></a>Indie Camp 2019游记</h1><p>​    记我的第一次Game Jam之旅。</p>
+<p>​    我最早知道Game Jam这么个东西是看谜之声的视频知道的，谜叔在每期Ludum Dare结束后都会选择一些有趣的作品做成实况，其中真的有许多很棒的作品。我知道的很多独立游戏就是从某届Ludum Dare的demo完善出来的，例如<em>Baba Is You</em>，<em>Mini Metro</em>等。这一次听说有一个Game Jam可以参加，还包来回车票以及食宿，相当于免费去上海玩一圈，这种好事肯定要报名啊🤣</p>
+<h2 id="Day-1-2019-12-13"><a href="#Day-1-2019-12-13" class="headerlink" title="Day 1 2019.12.13"></a>Day 1 2019.12.13</h2><p>​    请了一天假，周五早上从武汉出发。</p>
+<p><img src="/2019/12/16/indiecamp2019/a.jpg" alt="a"></p>
+<h2 id="Day-2-2019-12-14"><a href="#Day-2-2019-12-14" class="headerlink" title="Day 2 2019.12.14"></a>Day 2 2019.12.14</h2><h2 id="Day-3-2019-12-15"><a href="#Day-3-2019-12-15" class="headerlink" title="Day 3 2019.12.15"></a>Day 3 2019.12.15</h2><h2 id="感悟与总结"><a href="#感悟与总结" class="headerlink" title="感悟与总结"></a>感悟与总结</h2>
         
       </div>
 
@@ -488,86 +474,84 @@
 
       <div class="post-content">
         
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-<h2 id="微积分上期中考试题解">微积分（上）期中考试题解</h2>
-<p>​ 这次考试不算难，没有有意思的或者值得总结的题，写题解意义不大，我就是想练练<span class="math inline">\(\LaTeX\)</span>而已（手动滑稽）。</p>
-<p><strong>T1</strong> 求数列极限<span class="math inline">\(l = \lim\limits_{n \to \infty}{\sqrt[n]{2\sin^2n+3\cos^2n}}\)</span></p>
-<p>解：注意到<span class="math inline">\({\sqrt[n]{2}\leq\sqrt[n]{2\sin^2n+3\cos^2n}} = {\sqrt[n]{2+\cos^2x}}\leq \sqrt[n]{3}\)</span></p>
-<p>且<span class="math inline">\(\lim\limits_{n \to \infty}{\sqrt[n]{2}=\lim\limits_{n\to \infty}{\sqrt[n]{3}}=1}\)</span></p>
-<p>由夹挤准则 <span class="math inline">\(\lim\limits_{n \to \infty}{\sqrt[n]{2\sin^2n+3\cos^2n}}=1\)</span></p>
-<p><strong>T2</strong> 求无穷小<span class="math inline">\(u(x)=\sqrt[3]{x^2}-1 (x\to1)\)</span>关于<span class="math inline">\(x-1\)</span>的主部和阶数。</p>
-<p>解：<span class="math inline">\(\displaystyle u(x) = \left[1+(x-1)\right]^{\frac23}-1\sim\frac23(x-1)\)</span></p>
-<p>主部为<span class="math inline">\(\frac23(x-1)\)</span>,阶数为<span class="math inline">\(1\)</span></p>
-<p><strong>T3</strong> 求极限<span class="math inline">\(\displaystyle l =\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x\ln{\cos{x}}}}\)</span></p>
-<p>解： <span class="math display">\[
+          <p><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script></p>
+<h2 id="微积分（上）期中考试题解"><a href="#微积分（上）期中考试题解" class="headerlink" title="微积分（上）期中考试题解"></a>微积分（上）期中考试题解</h2><p>​        这次考试不算难，没有有意思的或者值得总结的题，写题解意义不大，我就是想练练$\LaTeX$而已（手动滑稽）。</p>
+<p><strong>T1</strong> 求数列极限$l = \lim\limits_{n \to \infty}{\sqrt[n]{2\sin^2n+3\cos^2n}}$</p>
+<p>解：注意到${\sqrt[n]{2}\leq\sqrt[n]{2\sin^2n+3\cos^2n}} = {\sqrt[n]{2+\cos^2x}}\leq \sqrt[n]{3}$</p>
+<p>且$\lim\limits_{n \to \infty}{\sqrt[n]{2}=\lim\limits_{n\to \infty}{\sqrt[n]{3}}=1}$</p>
+<p>由夹挤准则 $\lim\limits_{n \to \infty}{\sqrt[n]{2\sin^2n+3\cos^2n}}=1$</p>
+<p><strong>T2</strong> 求无穷小$u(x)=\sqrt[3]{x^2}-1 (x\to1)$关于$x-1$的主部和阶数。</p>
+<p>解：$\displaystyle u(x) = \left[1+(x-1)\right]^{\frac23}-1\sim\frac23(x-1)$</p>
+<p>主部为$\frac23(x-1)$,阶数为$1$</p>
+<p><strong>T3</strong> 求极限$\displaystyle l =\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x\ln{\cos{x}}}}$</p>
+<p>解：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-l &amp;=\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x\ln{\cos{x}}}} \\
-&amp;=\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x(\cos{x}-1)}}\\
-&amp;=-2\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x^3}}\\
-&amp;=-2\lim\limits_{x\to0}{\frac{x\sin{x}}{3x^2}}\\
-&amp;=-\frac23
-\end{aligned}
-\]</span> <strong>T4</strong>计算极限<span class="math inline">\(l=\lim\limits_{x\to0}(e^x-\sin x)^{\frac{1}{x^2}}\)</span></p>
-<p>解： <span class="math display">\[
+l &=\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x\ln{\cos{x}}}} \\
+&=\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x(\cos{x}-1)}}\\
+&=-2\lim\limits_{x\to0}{\frac{x\cos{x}+\sin{x}}{x^3}}\\
+&=-2\lim\limits_{x\to0}{\frac{x\sin{x}}{3x^2}}\\
+&=-\frac23
+\end{aligned}</script><p><strong>T4</strong>计算极限$l=\lim\limits_{x\to0}(e^x-\sin x)^{\frac{1}{x^2}}$</p>
+<p>解：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-l &amp;=\exp(\lim\limits_{x\to 0}\frac{\ln(e^x-\sin x)}{x^2})
-\\ &amp;= \exp(\lim\limits_{x\to 0}\frac{e^x-\sin x-1}{x^2})
-\\ &amp;= \exp(\lim\limits_{x\to 0}\frac{e^x-\cos x}{2x})
-\\ &amp;= \exp(\lim\limits_{x\to 0}\frac{e^x+\sin x}{2})
-\\ &amp;= \sqrt{e}
-\end{aligned}
-\]</span> <strong>T5</strong>设<span class="math inline">\(\displaystyle f(x)={x}^{\tan x}\)</span>,求<span class="math inline">\(\displaystyle f&#39;(\frac{\pi}{4})\)</span>。</p>
-<p>解：求导得<span class="math inline">\(\displaystyle f&#39;(x)=x^{\tan x}(\sec^2 x\ln x+\frac{\tan x}{x})\)</span></p>
-<p>带入<span class="math inline">\(\frac{\pi}{4}\)</span>得<span class="math inline">\(\displaystyle f&#39;(\frac{\pi}{4})=1+\frac\pi2\ln\frac\pi4\)</span></p>
-<p><strong>T6</strong>求曲线<span class="math inline">\(\cos x+\ln(y-x)=y^2\)</span>在<span class="math inline">\((0,1)\)</span>处的切线方程。</p>
-<p>解：两边求导，带入<span class="math inline">\(x=0,y=1\)</span>得到<span class="math inline">\(y&#39;(0)=-1\)</span></p>
-<p>故切线方程为<span class="math inline">\(y=-x+1\)</span></p>
-<p><strong>T7</strong>设<span class="math inline">\(f(x)\)</span>二阶可导，<span class="math inline">\(y=f(\sin x)\)</span>，求<span class="math inline">\(y&#39;&#39;\)</span></p>
-<p>解：<span class="math inline">\(y&#39;=f&#39;(\sin x)\cos x\)</span></p>
-<p><span class="math inline">\(y&#39;&#39;=f&#39;&#39;(\sin x)\cos^2x-f&#39;(\sin x)\sin x\)</span></p>
-<p><strong>T8</strong>设<span class="math inline">\(y=x\ln x\)</span>求<span class="math inline">\(y^{(6)}\)</span></p>
-<p>解：由Leibniz法则： <span class="math display">\[
+l &=\exp(\lim\limits_{x\to 0}\frac{\ln(e^x-\sin x)}{x^2})
+\\ &= \exp(\lim\limits_{x\to 0}\frac{e^x-\sin x-1}{x^2})
+\\ &= \exp(\lim\limits_{x\to 0}\frac{e^x-\cos x}{2x})
+\\ &= \exp(\lim\limits_{x\to 0}\frac{e^x+\sin x}{2})
+\\ &= \sqrt{e}
+\end{aligned}</script><p><strong>T5</strong>设$\displaystyle f(x)={x}^{\tan x}$,求$\displaystyle f’(\frac{\pi}{4})$。</p>
+<p>解：求导得$\displaystyle f’(x)=x^{\tan x}(\sec^2 x\ln x+\frac{\tan x}{x})$</p>
+<p>带入$\frac{\pi}{4}$得$\displaystyle f’(\frac{\pi}{4})=1+\frac\pi2\ln\frac\pi4$</p>
+<p><strong>T6</strong>求曲线$\cos x+\ln(y-x)=y^2$在$(0,1)$处的切线方程。</p>
+<p>解：两边求导，带入$x=0,y=1$得到$y’(0)=-1$</p>
+<p>故切线方程为$y=-x+1$</p>
+<p><strong>T7</strong>设$f(x)$二阶可导，$y=f(\sin x)$，求$y’’$</p>
+<p>解：$y’=f’(\sin x)\cos x$</p>
+<p>$y’’=f’’(\sin x)\cos^2x-f’(\sin x)\sin x$</p>
+<p><strong>T8</strong>设$y=x\ln x$求$y^{(6)}$</p>
+<p>解：由Leibniz法则：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-y^{(6)} &amp;=x(\ln x)^{(6)}+6(\ln x)^{(5)}
-\\ &amp;=\frac{24}{x^5}
-\end{aligned}
-\]</span> <strong>T9</strong>设函数 <span class="math display">\[
+y^{(6)} &=x(\ln x)^{(6)}+6(\ln x)^{(5)}
+\\ &=\frac{24}{x^5}
+\end{aligned}</script><p><strong>T9</strong>设函数</p>
+<script type="math/tex; mode=display">
 f(x)=\left\{
 \begin{aligned}
-&amp;e^{ax},x&lt;0\\&amp;b-\sin2x,x\geq0
+&e^{ax},x<0\\&b-\sin2x,x\geq0
 \end{aligned}
-\right.
-\]</span> 在<span class="math inline">\(x=0\)</span>处连续且可导，求<span class="math inline">\(a,b\)</span>的值。</p>
-<p>解：<span class="math inline">\(a=-2,b=1\)</span>，步骤略。</p>
+\right.</script><p>在$x=0$处连续且可导，求$a,b$的值。</p>
+<p>解：$a=-2,b=1$，步骤略。</p>
 <p><strong>T10</strong></p>
-<p><strong>T13</strong>证明：当<span class="math inline">\(n\)</span>为奇数时，实系数多项式函数<span class="math inline">\(f(x)=x^n+a_1x^{n-1}+a_2x^{n-2}+\ldots+a_n\)</span>至少有一个零点。</p>
-<p>解：当<span class="math inline">\(n\)</span>为奇数时，<span class="math inline">\(\lim\limits_{x\to+\infty}f(x)=+\infty\)</span>，<span class="math inline">\(\lim\limits_{x\to-\infty}f(x)=-\infty\)</span></p>
-<p>故<span class="math inline">\(\exists x_1,x_2,s.t.f(x_1)&gt;0,f(x_2)&lt;0\)</span></p>
-<p>由介值定理<span class="math inline">\(\exists x_0,f(x_0)=0\)</span></p>
-<p>即<span class="math inline">\(f(x)\)</span>至少有一个零点。</p>
-<p><strong>T14</strong>设<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(x=2\)</span>处可导，且<span class="math inline">\(f(2)\not = 0\)</span>,求数列极限<span class="math inline">\(\displaystyle\lim\limits_{n\to\infty}{\left[\frac{f(2+\frac1n)}{f(2)}\right]^n}\)</span></p>
-<p><strong>T15</strong>求函数<span class="math inline">\(f(x)=x\cos{x}\)</span>的带peano余项的5阶Maclaurin多项式。</p>
-<p>解：<span class="math inline">\(\displaystyle\cos x=1-\frac12x^2+\frac1{24}x^4+o(x^5)\)</span></p>
-<p><span class="math inline">\(\displaystyle x\cos x=x-\frac12x^3+\frac1{24}x^5+o(x^6)\)</span></p>
-<p><strong>T16</strong>设数列<span class="math inline">\(\{x_n\}\)</span>满足：<span class="math inline">\(x_1=\sqrt6\)</span>,<span class="math inline">\(x_{n+1}=\sqrt{6+x_n}\)</span>证明极限<span class="math inline">\(\lim\limits_{n\to\infty}{x_n}\)</span>存在并求其值。</p>
-<p>解：假设<span class="math inline">\(\sqrt6 \leq x_n\leq3\)</span>,则<span class="math inline">\(\sqrt6\leq x_{n+1}=\sqrt{6+x_n}\leq3\)</span>,<span class="math inline">\(n=1\)</span>时,<span class="math inline">\(\sqrt6\leq x_1=\sqrt6\leq3\)</span></p>
-<p>由数学归纳法，<span class="math inline">\(\forall n \in \mathbb{N}^*\)</span>有<span class="math inline">\(\sqrt6 \leq x_n\leq3\)</span> <span class="math display">\[
+<p><strong>T13</strong>证明：当$n$为奇数时，实系数多项式函数$f(x)=x^n+a_1x^{n-1}+a_2x^{n-2}+\ldots+a_n$至少有一个零点。</p>
+<p>解：当$n$为奇数时，$\lim\limits_{x\to+\infty}f(x)=+\infty$，$\lim\limits_{x\to-\infty}f(x)=-\infty$</p>
+<p>故$\exists x_1,x_2,s.t.f(x_1)&gt;0,f(x_2)&lt;0$</p>
+<p>由介值定理$\exists x_0,f(x_0)=0$</p>
+<p>即$f(x)$至少有一个零点。</p>
+<p><strong>T14</strong>设$f(x)$在$x=2$处可导，且$f(2)\not = 0$,求数列极限$\displaystyle\lim\limits_{n\to\infty}{\left[\frac{f(2+\frac1n)}{f(2)}\right]^n}$</p>
+<p><strong>T15</strong>求函数$f(x)=x\cos{x}$的带peano余项的5阶Maclaurin多项式。</p>
+<p>解：$\displaystyle\cos x=1-\frac12x^2+\frac1{24}x^4+o(x^5)$</p>
+<p>$\displaystyle x\cos x=x-\frac12x^3+\frac1{24}x^5+o(x^6)$</p>
+<p><strong>T16</strong>设数列$\{x_n\}$满足：$x_1=\sqrt6$,$x_{n+1}=\sqrt{6+x_n}$证明极限$\lim\limits_{n\to\infty}{x_n}$存在并求其值。</p>
+<p>解：假设$\sqrt6 \leq x_n\leq3$,则$\sqrt6\leq x_{n+1}=\sqrt{6+x_n}\leq3$,$n=1$时,$\sqrt6\leq x_1=\sqrt6\leq3$</p>
+<p>由数学归纳法，$\forall n \in \mathbb{N}^*$有$\sqrt6 \leq x_n\leq3$</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-x_{n+1}-x_n &amp;= \sqrt{6+x_n}-\sqrt{x_n} \\ 
-&amp;= \frac{6+x_n-x_n^2}{\sqrt{6+x_n}+\sqrt{x_n}} \geq 0\\
-\end{aligned}
-\]</span> 所以<span class="math inline">\(\{x_n\}\)</span>单调递增，由单调有界收敛准则<span class="math inline">\(\lim\limits_{n\to\infty}{x_n}\)</span>存在，设<span class="math inline">\(\alpha=\lim\limits_{n\to\infty}{x_n}\)</span></p>
-<p>对等式<span class="math inline">\(x_{n+1}=\sqrt{6+x_n}\)</span>两边对<span class="math inline">\(n\to\infty\)</span>取极限，有<span class="math inline">\(\alpha=\sqrt{6+\alpha}\)</span></p>
-<p>即<span class="math inline">\(\alpha^2-\alpha-6=0\)</span>,解得<span class="math inline">\(\alpha=3\)</span>或<span class="math inline">\(\alpha = -2\)</span>(舍)</p>
-<p>因此<span class="math inline">\(\lim\limits_{n\to\infty}x_n=3\)</span></p>
-<p><strong>T17</strong>设<span class="math inline">\(0&lt;a&lt;b\)</span>,<span class="math inline">\(f(x)\)</span>在闭区间<span class="math inline">\([a,b]\)</span>上连续，开区间<span class="math inline">\((a,b)\)</span>上可导，证明：</p>
-<p><span class="math display">\[ \exists \xi\in(a,b),f&#39;(\xi)\xi-f(\xi)=\displaystyle\frac{af(b)-bf(a)}{b-a}\]</span></p>
-<p>解：设<span class="math inline">\(\displaystyle F(x)=\frac{f(x)}{x}\)</span>,<span class="math inline">\(\displaystyle g(x)=-\frac1x\)</span>,则<span class="math inline">\(f(x)\)</span>,<span class="math inline">\(g(x)\)</span>在闭区间<span class="math inline">\([a,b]\)</span>上连续，开区间<span class="math inline">\((a,b)\)</span>上可导,且<span class="math inline">\(g’(x)\not=0\)</span></p>
-<p>由Cauchy中值定理 <span class="math display">\[
-\exists \xi \in (a,b),\frac{F&#39;(\xi)}{g&#39;(\xi)}=\frac{F(b)-F(a)}{g(b)-g(a)}
-\]</span> 即 <span class="math display">\[
-\displaystyle \frac{\frac{f&#39;(\xi)\xi-f(\xi)}{\xi^2}}{\frac{1}{\xi^2}}=\frac{\frac{f(b)}{b}-\frac{f(a)}{a}}{\frac1a-\frac1b}
-\]</span> 化简得<span class="math inline">\(f&#39;(\xi)\xi-f(\xi)=\displaystyle\frac{af(b)-bf(a)}{b-a}\)</span>即为所求。</p>
+x_{n+1}-x_n &= \sqrt{6+x_n}-\sqrt{x_n} \\ 
+&= \frac{6+x_n-x_n^2}{\sqrt{6+x_n}+\sqrt{x_n}} \geq 0\\
+\end{aligned}</script><p>所以$\{x_n\}$单调递增，由单调有界收敛准则$\lim\limits_{n\to\infty}{x_n}$存在，设$\alpha=\lim\limits_{n\to\infty}{x_n}$</p>
+<p>对等式$x_{n+1}=\sqrt{6+x_n}$两边对$n\to\infty$取极限，有$\alpha=\sqrt{6+\alpha}$</p>
+<p>即$\alpha^2-\alpha-6=0$,解得$\alpha=3$或$\alpha = -2$(舍)</p>
+<p>因此$\lim\limits_{n\to\infty}x_n=3$</p>
+<p><strong>T17</strong>设$0&lt;a&lt;b$,$f(x)$在闭区间$[a,b]$上连续，开区间$(a,b)$上可导，证明：</p>
+<script type="math/tex; mode=display">\exists \xi\in(a,b),f'(\xi)\xi-f(\xi)=\displaystyle\frac{af(b)-bf(a)}{b-a}</script><p>解：设$\displaystyle F(x)=\frac{f(x)}{x}$,$\displaystyle g(x)=-\frac1x$,则$f(x)$,$g(x)$在闭区间$[a,b]$上连续，开区间$(a,b)$上可导,且$g’(x)\not=0$</p>
+<p>由Cauchy中值定理</p>
+<script type="math/tex; mode=display">
+\exists \xi \in (a,b),\frac{F'(\xi)}{g'(\xi)}=\frac{F(b)-F(a)}{g(b)-g(a)}</script><p>即</p>
+<script type="math/tex; mode=display">
+\displaystyle \frac{\frac{f'(\xi)\xi-f(\xi)}{\xi^2}}{\frac{1}{\xi^2}}=\frac{\frac{f(b)}{b}-\frac{f(a)}{a}}{\frac1a-\frac1b}</script><p>化简得$f’(\xi)\xi-f(\xi)=\displaystyle\frac{af(b)-bf(a)}{b-a}$即为所求。</p>
 
         
       </div>
@@ -632,9 +616,8 @@ x_{n+1}-x_n &amp;= \sqrt{6+x_n}-\sqrt{x_n} \\
 
       <div class="post-content">
         
-          <h1 id="关于此博客">关于此博客</h1>
-<p>​ 一直以来都有写博客的想法，但由于各种原因一直没有开始着手。2018年7月21日我建立了自己的第一个博客（现已不再使用）。本博客建立于2019年8月31日。</p>
-<p>​</p>
+          <h1 id="关于此博客"><a href="#关于此博客" class="headerlink" title="关于此博客"></a>关于此博客</h1><p>​    一直以来都有写博客的想法，但由于各种原因一直没有开始着手。2018年7月21日我建立了自己的第一个博客（现已不再使用）。本博客建立于2019年8月31日。</p>
+<p>​    </p>
 
         
       </div>
@@ -666,18 +649,13 @@ x_{n+1}-x_n &amp;= \sqrt{6+x_n}-\sqrt{x_n} \\
       <div class="post-content">
         
           <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
         
